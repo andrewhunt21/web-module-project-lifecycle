@@ -1,6 +1,33 @@
+import axios from 'axios';
 import React from 'react';
 
 class App extends React.Component {
+  state = {
+    avatar: "",
+    name: "",
+    login: "",
+    repos: "",
+    totalFollowers: "",
+    listFollowers: []
+  }
+
+  componentDidMount() {
+    axios.get('https://api.github.com/users/andrewhunt21')
+      .then(resp => {
+        this.setState({
+          ...this.state,
+          avatar: resp.data.avatar_url,
+          name: resp.data.name,
+          login: resp.data.login,
+          repos: resp.data.public_repos,
+          totalFollowers: resp.data.followers,
+          listFollowers: resp.data.followers_url
+        });
+      }).catch(err => {
+        console.error(err);
+      })
+  }
+
   render() {
     return(
       <div>
@@ -12,11 +39,11 @@ class App extends React.Component {
         </form>
 
         <div>
-          <img />
-          <h2>Andrew Hunt</h2>
-          <p>(andrewhunt21)</p>
-          <p>Total Repos: lots</p>
-          <p>Total Followers: millions</p>
+          <img width="200" src={this.state.avatar} />
+          <h2>{this.state.name}</h2>
+          <p>{this.state.login}</p>
+          <p>Total Repos: {this.state.repos}</p>
+          <p>Total Followers: {this.state.totalFollowers}</p>
         </div>
 
         <div>
