@@ -1,5 +1,7 @@
 import axios from 'axios';
 import React from 'react';
+import FollowerList from './components/FollowerList';
+import User from './components/User';
 
 class App extends React.Component {
   state = {
@@ -39,17 +41,11 @@ class App extends React.Component {
         </form>
 
         <div>
-          <img width="200" src={this.state.avatar} />
-          <h2>{this.state.name}</h2>
-          <p>{this.state.login}</p>
-          <p>Total Repos: {this.state.repos}</p>
-          <p>Total Followers: {this.state.totalFollowers}</p>
+          <User state={this.state} />
         </div>
 
         <div>
-          <h2>Followers:</h2>
-          <img />
-          <p>usernames</p>
+          <FollowerList followers={this.state.listFollowers} />
         </div>
 
       </div>);
